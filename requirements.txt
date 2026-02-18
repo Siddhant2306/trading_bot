@@ -1,0 +1,22 @@
+# Data handling
+pandas>=2.0
+numpy>=1.25
+
+# Data fetching
+yfinance>=0.2.27
+
+# Plotting & visualization
+matplotlib>=3.8
+seaborn>=0.12
+
+# Technical indicators (optional, useful later)
+ta>=0.11.0
+
+# Backtesting framework (optional)
+backtesting>=0.3.2
+
+# Scikit-learn for statistical/ML tasks (optional)
+scikit-learn>=1.3
+
+# Optional: interactive plotting later
+plotly>=6.9
