@@ -6,7 +6,9 @@ def main():
     print("=== Trading Bot Data Fetcher ===")
 
     tickers_input = input("Enter ticker symbols (comma separated, e.g., AAPL,GOOGL,MSFT): ")
-    
+    period_input = input("Enter your periods in years: ")
+    interval_input = input("Enter the interval: ")
+
     # Split, strip spaces, convert to uppercase
     tickers = [t.strip().upper() for t in tickers_input.split(",") if t.strip()]
     
@@ -16,7 +18,7 @@ def main():
     
     for ticker in tickers:
         try:
-            fetch_and_plot_data(ticker, period="5y", interval="1d")
+            fetch_and_plot_data(ticker, period=period_input, interval=interval_input)
         except Exception as e:
             print(f"Error fetching data for {ticker}: {e}")
     
