@@ -2,7 +2,6 @@
 
 import os
 import matplotlib
-import pandas as pd
 import yfinance as yf
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
