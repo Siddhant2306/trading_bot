@@ -9,7 +9,7 @@ import seaborn as sns
 
 sns.set(style="darkgrid")  # better plot style
 
-def fetch_and_plot_data(ticker: str, period="5y", interval="1d"):
+def fetch_and_plot_data(ticker: str, period : str , interval: str):
    
     if not os.path.exists("data"):
         os.makedirs("data")
