@@ -1,37 +1,46 @@
 import pandas as pd
-
 import os
 
-
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-file_path = os.path.join(BASE_DIR, "data", "AAPL_data.csv")
+DATA_DIR = os.path.join(BASE_DIR, "data")
 
-df = pd.read_csv(file_path, skiprows=[1, 2])
+def clean_data(ticker):
 
-# Drop first 2 unwanted rows (Ticker + Date row)
-df = df.drop([1, 2]).reset_index(drop=True)
+    file_path = os.path.join(DATA_DIR, f"{ticker}_data.csv")
 
-# Rename first column properly
-df = df.rename(columns={"Price": "Date"})
+    print(f"Cleaning data for {ticker}...")
 
-# Convert Date column to datetime
-df["Date"] = pd.to_datetime(df["Date"])
+    # Read CSV and skip unwanted rows
+    df = pd.read_csv(file_path, skiprows=[1,2])
 
-# Convert numeric columns to float
-numeric_cols = ["Close", "High", "Low", "Open", "Volume"]
-df[numeric_cols] = df[numeric_cols].apply(pd.to_numeric, errors="coerce")
+    # Rename first column
+    df = df.rename(columns={"Price": "Date"})
 
-# Remove duplicates (based on Date)
-df = df.drop_duplicates(subset="Date")
+    # Convert date
+    df["Date"] = pd.to_datetime(df["Date"])
 
-# Round float columns to 4 decimal places
-float_cols = ["Close", "High", "Low", "Open"]
-df[float_cols] = df[float_cols].round(4)
+    # Convert numeric columns
+    numeric_cols = ["Close", "High", "Low", "Open", "Volume"]
+    df[numeric_cols] = df[numeric_cols].apply(pd.to_numeric, errors="coerce")
 
-# Sort by date (important for ML)
-df = df.sort_values("Date").reset_index(drop=True)
+    # Remove bad rows
+    df = df.dropna()
 
-print(df.head())
+    # Remove duplicate dates
+    df = df.drop_duplicates(subset="Date")
 
-# Save cleaned data
-df.to_csv("cleaned_data.csv", index=False)
+    # Round floats
+    float_cols = ["Close", "High", "Low", "Open"]
+    df[float_cols] = df[float_cols].round(4)
+
+    # Sort by date
+    df = df.sort_values("Date").reset_index(drop=True)
+
+    # Save cleaned file
+    output_path = os.path.join(DATA_DIR, f"{ticker}_cleaned.csv")
+    df.to_csv(output_path, index=False)
+
+    print(f"Cleaned data saved to {output_path}")
+    print(df.dtypes)
+
+    return df
