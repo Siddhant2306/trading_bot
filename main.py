@@ -1,11 +1,10 @@
-# main.py
 import pandas as pd
 import matplotlib.pyplot as plt
 
 #from src.strategy import compute_statistics, generate_signals
 from src.data_loader import fetch_and_plot_data
 from src.data_cleaner import clean_data
-from src.backtester import backtest_strategy
+#from src.backtester import backtest_strategy
 from src.strategy_statistical import compute_returns
 from src.walk_forward_test import walk_forward_test
    

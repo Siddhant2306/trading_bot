@@ -11,7 +11,7 @@ def compute_returns(df):
     return df
 
 
-def compute_yearly_statistics(df, k=3):
+def compute_yearly_statistics(df, k=4):
 
     stats = df.groupby("Year")["Return"].agg(["mean", "median", "std"])
 
